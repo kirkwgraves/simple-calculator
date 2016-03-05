@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace SimpleCalculator
 {
-    public class Parse
+    public class Division
     {
-        public int Num1 { get; set; }
-        public int Num2 { get; set; }
-        public char Operate { get; set; }
+        public double Divide(int num1, int num2)
+        {
+            double result = num1 / num2;
+            return result;
+        }
     }
 }

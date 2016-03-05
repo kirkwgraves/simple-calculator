@@ -9,7 +9,7 @@ namespace SimpleCalculatorTest
     {
 
         [TestMethod]
-        public void ExpressionEnsureICanCreateInstance()
+        public void ExpressionProveICanCreateInstance()
         {
             // Arrange 
             Expression my_expression = new Expression();
@@ -26,8 +26,8 @@ namespace SimpleCalculatorTest
             Expression my_expression = new Expression();
 
             // Act
-            string expected = my_expression.RemoveSpacesFromExpression();
-            string actual = "1+5";
+            string actual = my_expression.RemoveSpacesFromExpression();
+            string expected = "1+5";
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -40,20 +40,11 @@ namespace SimpleCalculatorTest
             Expression my_expression = new Expression();
 
             // Act 
-            Parse parsedExpression = my_expression.ExtractTerms("5 + 9");
-            int expectedNum1 = parsedExpression.Num1;
-            int actualNum1 = 5;
-
-            int expectedNum2 = parsedExpression.Num2;
-            int actualNum2 = 9;
-
-            char expectedOperator = parsedExpression.Operate;
-            char actualOperator = '+';
-
+            object[] actual = my_expression.ExtractTerms("5 + 9");
+            object[] expected = { 5, '+', 9 }; 
+ 
             // Assert
-            Assert.AreEqual(expectedNum1, actualNum1);
-            Assert.AreEqual(expectedNum2, actualNum2);
-            Assert.AreEqual(expectedOperator, actualOperator);
+            CollectionAssert.AreEqual(expected, actual);
         }
 
     }

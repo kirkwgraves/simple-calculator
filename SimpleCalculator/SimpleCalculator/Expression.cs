@@ -16,7 +16,7 @@ namespace SimpleCalculator
             return input_expression;
         }
 
-        virtual public Parse ExtractTerms(string input_expression)
+        virtual public object[] ExtractTerms(string input_expression)
         {
             Console.WriteLine("Please enter an expression.");
             // Remove spaces from user input expression
@@ -27,26 +27,48 @@ namespace SimpleCalculator
             // If no operator is found, throw exception alerting user that operator is needed
             if (operatorIndex == -1)
             {
-                throw new InvalidOperationException("You need an operator!");
+                throw new ArgumentException("You need an operator!");
             }
 
             // Store the operator in the local variable (oper) using its index from IndexOfAny method above
-            char oper = user_expression[operatorIndex];
+            char oper;
+            try
+            {
+                oper = user_expression[operatorIndex];
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException("You didn't enter a valid operator (+, -, *, /, %)");
+            }
             // Isolate terms of expression in string array using Split method with oper as delimiter
             string[] parsedTerms = user_expression.Split(oper);
 
             // Check that string array with expression terms contains at least two elements
             if (parsedTerms.Length != 2 || parsedTerms[0].Equals("") || parsedTerms[1].Equals(""))
             {
-                throw new InvalidOperationException("You haven't entered the correct number of terms.");
+                throw new ArgumentException("You haven't entered the correct number of terms.");
             }
 
-            // Create new instance of Parse class, which contains properties for our terms and operator
-            Parse parsed_expression = new Parse();
-            parsed_expression.Operate = oper;
-            parsed_expression.Num1 = Convert.ToInt32(parsedTerms[0]);
-            parsed_expression.Num2 = Convert.ToInt32(parsedTerms[1]);
+            // Declare the first term
+            int num1, num2;
+            try
+            {
+                num1 = Convert.ToInt32(parsedTerms[0]);
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException("The first term is not an integer!");
+            }
+            try
+            {
+                num2 = Convert.ToInt32(parsedTerms[1]);
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException("The second term is not an integer!");
+            } 
        
+            object[] parsed_expression = { num1, oper, num2 };
             return parsed_expression;
         }
     }
