@@ -43,9 +43,54 @@ namespace SimpleCalculatorTest
             object[] actual = my_expression.ExtractTerms("5 + 9");
             object[] expected = { 5, '+', 9 }; 
  
-            // Assert
+             // Assert
             CollectionAssert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ExpressionProveICanHandleBadExpression1()
+        {
+            // Arrange
+            Expression my_expression = new Expression(); ;
+
+            // Act
+            my_expression.ExtractTerms("6 +");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ExpressionProveICanHandleBadExpression2()
+        {
+            // Arrange 
+            Expression my_expression = new Expression();
+
+            // Act
+            my_expression.ExtractTerms(" + 6");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ExpressionProveICanHandleBadExpression3()
+        {
+            // Arrange
+            Expression my_expression = new Expression();
+
+            // Act
+            my_expression.ExtractTerms("5");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ExpressionProveICanHandleBadExpressionNoOper()
+        {
+            // Arrange 
+            Expression my_expression = new Expression();
+
+            // Act 
+            my_expression.ExtractTerms("8 9");
+        }
+
 
     }
 }

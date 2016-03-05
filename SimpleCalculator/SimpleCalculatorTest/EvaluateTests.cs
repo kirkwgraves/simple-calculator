@@ -8,7 +8,7 @@ namespace SimpleCalculatorTests
     public class EvaluateTests
     {
         [TestMethod]
-        public void EvaluateProveICanCreateInstance() 
+        public void EvaluateProveICanCreateInstance()
         {
             // Arrange
             Evaluate my_eval_expression = new Evaluate();
@@ -23,7 +23,7 @@ namespace SimpleCalculatorTests
             // Arrange
             Evaluate addition_exp = new Evaluate();
             object[] test_expression = { 5, '+', 6 };
-            
+
             // Act
             double actual = addition_exp.EvaluateExpression(test_expression);
             double expected = 11;
@@ -77,6 +77,21 @@ namespace SimpleCalculatorTests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        public void EvaluateProveICanDivideUnevenly()
+        {
+            // Arrange 
+            Evaluate division_exp = new Evaluate();
+            object[] test_expression = { 15, '/', 4 };
+
+            // Act
+            double actual = division_exp.EvaluateExpression(test_expression);
+            double expected = 3.75;
+
+            // Assert
+            Assert.AreEqual(actual, expected);
+        }
+    
         [TestMethod]
         public void EvaluateProveICanGetModulo()
         {

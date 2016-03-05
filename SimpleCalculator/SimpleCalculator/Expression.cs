@@ -9,16 +9,15 @@ namespace SimpleCalculator
     public class Expression
     {
        
-        virtual public string RemoveSpacesFromExpression()
+        public string RemoveSpacesFromExpression()
         {
             string input_expression = "1 + 5";
             input_expression = input_expression.Replace(" ", "");
             return input_expression;
         }
 
-        virtual public object[] ExtractTerms(string input_expression)
+        public object[] ExtractTerms(string input_expression)
         {
-            Console.WriteLine("Please enter an expression.");
             // Remove spaces from user input expression
             string user_expression = input_expression.Replace(" ", "");
             // Identify operator's index in string
