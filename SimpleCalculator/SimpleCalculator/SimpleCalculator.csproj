@@ -51,6 +51,7 @@
     <Compile Include="Multiplication.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EvalStack.cs" />
     <Compile Include="Subtraction.cs" />
     <Compile Include="Terminal.cs" />
   </ItemGroup>

@@ -21,7 +21,7 @@ namespace SimpleCalculator
             // Remove spaces from user input expression
             string user_expression = input_expression.Replace(" ", "");
             // Identify operator's index in string
-            int operatorIndex = user_expression.IndexOfAny(new char[] { '+', '-', '*', '/', '%' });
+            int operatorIndex = user_expression.IndexOfAny(new char[] { '+', '-', '*', '/', '%' }, 1);
 
             // If no operator is found, throw exception alerting user that operator is needed
             if (operatorIndex == -1)

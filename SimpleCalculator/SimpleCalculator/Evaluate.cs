@@ -16,6 +16,7 @@ namespace SimpleCalculator
 
             if (the_operator == '+')
             {
+
                 Addition add_exp = new Addition();
                 return add_exp.Add(num1, num2);
             }

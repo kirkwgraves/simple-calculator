@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace SimpleCalculator
 {
-    class EvalStack
+    public class EvalStack
     {
+        public string lastq { get; set; }
+        public double last { get; set; }
     }
 }
