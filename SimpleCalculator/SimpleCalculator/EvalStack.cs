@@ -8,7 +8,7 @@ namespace SimpleCalculator
 {
     public class EvalStack
     {
-        public string lastq { get; set; }
+        public object[] lastq { get; set; }
         public double last { get; set; }
     }
 }

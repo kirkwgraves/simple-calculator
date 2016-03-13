@@ -18,6 +18,7 @@ namespace SimpleCalculator
 
         public object[] ExtractTerms(string input_expression)
         {
+
             // Remove spaces from user input expression
             string user_expression = input_expression.Replace(" ", "");
             // Identify operator's index in string
@@ -65,8 +66,8 @@ namespace SimpleCalculator
             catch (Exception)
             {
                 throw new ArgumentException("The second term is not an integer!");
-            } 
-       
+            }
+
             object[] parsed_expression = { num1, oper, num2 };
             return parsed_expression;
         }

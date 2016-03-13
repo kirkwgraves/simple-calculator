@@ -23,14 +23,14 @@ namespace SimpleCalculatorTest
         {
             // Arrange 
             EvalStack my_stack = new EvalStack();
-            my_stack.lastq = "8 * 9";
-
+            my_stack.lastq = new object[] { 8, '*', 9};
+             
             // Act
-            string actual = my_stack.lastq;
-            string expected = "8 * 9";
+            object[] actual = my_stack.lastq;
+            object[] expected = { 8, '*', 9 };
 
             // Assert
-            Assert.AreEqual(actual, expected);
+            CollectionAssert.AreEqual(actual, expected);
         }
 
         [TestMethod]
