@@ -47,5 +47,22 @@ namespace SimpleCalculatorTest
             // Assert
             Assert.AreEqual(actual, expected);
         }
+
+        [TestMethod]
+        public void EvalStackProveICanGetAndSetConstant()
+        {
+            // Arrange
+            EvalStack my_stack = new EvalStack();
+            object[] constant_exp = { 'A', '=', 2 };
+            char constantKey = 'A';
+
+            // Act
+            my_stack.SetConstant(constant_exp);
+            int actual = my_stack.GetConstant(constantKey);
+            int expected = 2;
+
+            // Assert
+            Assert.AreEqual(actual, expected);
+        }
     }
 }
