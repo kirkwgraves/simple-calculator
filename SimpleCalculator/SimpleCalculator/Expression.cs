@@ -33,6 +33,7 @@ namespace SimpleCalculator
             // Store the operator in the local variable (oper) using its index from IndexOfAny method above
             char oper;
             oper = user_expression[operatorIndex];
+            // Create char array of all possible valid constant keys
             char[] constant_values = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
             if (oper == '=')
             {
@@ -41,7 +42,13 @@ namespace SimpleCalculator
                 {
                     throw new ArgumentException("You didn't enter a single letter value (e.g., 'A', 'B', 'C', etc) for your constant!");
                 }
+                char constantKey = (char)user_expression[0];
+                int constantValue = (int)user_expression[2];
+                return new object[] { constantKey, oper, constantValue };
             }
+
+
+
             else
             {
                 // Isolate terms of expression in string array using Split method with oper as delimiter
@@ -71,6 +78,7 @@ namespace SimpleCalculator
                 {
                     throw new ArgumentException("The second term is not an integer!");
                 }
+
 
                 object[] parsed_expression = { num1, oper, num2 };
                 return parsed_expression;
