@@ -12,8 +12,6 @@ namespace SimpleCalculator
         public static void Main(string[] args)
         {
 
-            Terminal exp_to_display = new Terminal();
-            exp_to_display.AcceptUserExpression();
         }
     }
 }

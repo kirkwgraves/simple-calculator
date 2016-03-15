@@ -60,7 +60,7 @@ namespace SimpleCalculator
                     throw new ArgumentException("You haven't entered the correct number of terms.");
                 }
 
-                // Declare the first term
+                // Declare the terms
                 int num1, num2;
                 try
                 {
