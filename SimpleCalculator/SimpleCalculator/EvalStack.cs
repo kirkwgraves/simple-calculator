@@ -8,6 +8,7 @@ namespace SimpleCalculator
 {
     public class EvalStack
     {
+        Terminal user_term = new Terminal();
         Dictionary<char, int> constant = new Dictionary<char, int>();
         public object[] lastq { get; set; }
         public double last { get; set; }

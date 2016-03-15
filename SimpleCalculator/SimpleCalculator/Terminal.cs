@@ -22,7 +22,7 @@ namespace SimpleCalculator
 
         public string DisplayExpressionResult(double result)
         {
-            string result_as_string = String.Format("  ={0}", result);
+            string result_as_string = String.Format("   = {0}", result);
             counter++;
             return result_as_string;
         }

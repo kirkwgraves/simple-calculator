@@ -40,7 +40,7 @@ namespace SimpleCalculatorTest
 
             // Act
             string actual = my_term.DisplayExpressionResult(44);
-            string expected = "  =44";
+            string expected = "   = 44";
 
             // Assert
             Assert.AreEqual(actual, expected);
