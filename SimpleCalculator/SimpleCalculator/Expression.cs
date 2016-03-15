@@ -21,6 +21,7 @@ namespace SimpleCalculator
 
             // Remove spaces from user input expression
             string user_expression = input_expression.Replace(" ", "");
+ 
             // Identify operator's index in string
             int operatorIndex = user_expression.IndexOfAny(new char[] { '+', '-', '*', '/', '%', '=' }, 1);
 
@@ -33,6 +34,7 @@ namespace SimpleCalculator
             // Store the operator in the local variable (oper) using its index from IndexOfAny method above
             char oper;
             oper = user_expression[operatorIndex];
+            
             // Create char array of all possible valid constant keys
             char[] constant_values = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
             if (oper == '=')
@@ -46,8 +48,6 @@ namespace SimpleCalculator
                 int constantValue = (int)user_expression[2];
                 return new object[] { constantKey, oper, constantValue };
             }
-
-
 
             else
             {
