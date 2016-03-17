@@ -9,7 +9,7 @@ namespace SimpleCalculator
     public class EvalStack
     {
         Terminal user_term = new Terminal();
-        Dictionary<char, int> constant = new Dictionary<char, int>();
+        public Dictionary<char, int> constant = new Dictionary<char, int>();
         public object[] lastq { get; set; }
         public double last { get; set; }
 
@@ -28,7 +28,14 @@ namespace SimpleCalculator
         public int GetConstant(char constantKey)
         {
             int value;
-            constant.TryGetValue(constantKey, out value);
+            if (constant.ContainsKey(constantKey))
+            {
+                constant.TryGetValue(constantKey, out value);
+            }
+            else
+            {
+                throw new Exception();
+            }
             return value;
         }
 

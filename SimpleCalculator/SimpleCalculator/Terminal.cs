@@ -29,7 +29,8 @@ namespace SimpleCalculator
 
         public string ReturnLastExpression(EvalStack eval_stack)
         {
-            return String.Format("{0}{1}{2}", eval_stack.lastq);
+            counter++;
+            return String.Format("   {0}{1}{2}", eval_stack.lastq);
         }
     }
 }

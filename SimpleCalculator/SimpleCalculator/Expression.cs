@@ -7,37 +7,30 @@ using System.Threading.Tasks;
 namespace SimpleCalculator
 {
     public class Expression
-    {
-
-        public string RemoveSpacesFromExpression()
+    {        
+       
+        public object[] Parse(string input_expression, EvalStack eval_stack)
         {
-            string input_expression = "1 + 5";
-            input_expression = input_expression.Replace(" ", "");
-            return input_expression;
-        }
-
-        public object[] ExtractTerms(string input_expression)
-        {
-            EvalStack eval_stack = new EvalStack();
             // Remove spaces from user input expression
             string user_expression = input_expression.Replace(" ", "");
             
             // Create char array of all possible valid constant keys
-            char[] constant_values = new char[] { 'A', 'a', 'B', 'b', 'C', 'c', 'D', 'd', 'E', 'e', 'F', 'f', 'G', 'g', 'H', 'h', 'I', 'i', 'J', 'j', 'K', 'k', 'L', 'l', 'M', 'm', 'N', 'n', 'O', 'o', 'P', 'p', 'Q', 'q', 'R', 'r', 'S', 's', 'T', 't', 'U', 'u', 'V', 'v', 'W', 'w', 'X', 'x', 'Y', 'y', 'Z', 'z' };
+            char[] constant_values = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 
-            if (user_expression.Length == 1) 
-            {
-                int constant = eval_stack.GetConstant(user_expression[0]);
-                object[] the_constant = { constant };
-                return the_constant;
-            }
-            
             // Identify operator's index in string
             int operatorIndex = user_expression.IndexOfAny(new char[] { '+', '-', '*', '/', '%', '=' }, 1);
  
+            if (operatorIndex == -1)
+            {
+            // If no operator is found, throw exception alerting user that operator is needed
+                throw new ArgumentException("You need an operator!");
+            }
+            
             // Store the operator in the local variable (oper) using its index from IndexOfAny method above
             char oper;
             oper = user_expression[operatorIndex];
+            // Isolate terms of expression in string array using Split method with oper as delimiter
+            string[] parsedTerms = user_expression.Split(oper);
            
             if (oper == '=')
             {
@@ -48,22 +41,20 @@ namespace SimpleCalculator
                 {
                     throw new ArgumentException("You didn't enter a single letter value (e.g., 'A', 'B', 'C', etc) for your constant!");
                 }
-                char constantKey = (char)user_expression[0];
-                constantKey = Char.ToUpper(constantKey);
-                int constantValue = (int)user_expression[2];
-                return new object[] { constantKey, oper, constantValue };
-            }
+                char constantKey = (char)parsedTerms[0][0];
+                constantKey = char.ToUpper(constantKey);
+                int constantValue;
+                bool success = int.TryParse(parsedTerms[1], out constantValue);
+                //int constantValue = (int)user_expression[2];
 
-            // If no operator is found, throw exception alerting user that operator is needed
-            else if (operatorIndex == -1)
-            {
-                throw new ArgumentException("You need an operator!");
+                object[] constant_expression = { constantKey, oper, constantValue };
+                eval_stack.SetConstant(constant_expression);
+                return constant_expression; /* This STOPS the method - it's a return statment (duh).
+                Constant expression has been parsed and constant is set. */
             }
 
             else
             {
-                // Isolate terms of expression in string array using Split method with oper as delimiter
-                string[] parsedTerms = user_expression.Split(oper);
 
                 // Check that string array with expression terms contains at least two elements
                 if (parsedTerms.Length != 2 || parsedTerms[0].Equals("") || parsedTerms[1].Equals(""))
@@ -73,25 +64,25 @@ namespace SimpleCalculator
 
                 // Declare the terms
                 int num1, num2;
-                try
+
+                bool success = int.TryParse(parsedTerms[0], out num1);
+
+                if (!success)
                 {
-                    num1 = Convert.ToInt32(parsedTerms[0]);
-                }
-                catch (Exception)
-                {
-                    throw new ArgumentException("The first term is not an integer!");
-                }
-                try
-                {
-                    num2 = Convert.ToInt32(parsedTerms[1]);
-                }
-                catch (Exception)
-                {
-                    throw new ArgumentException("The second term is not an integer!");
+                    char retrieved_const = char.ToUpper(parsedTerms[0][0]);
+                    num1 = eval_stack.GetConstant(retrieved_const);
                 }
 
+                success = int.TryParse(parsedTerms[1], out num2);
+                if (!success)
+                {
+                    char retrieved_const2 = char.ToUpper(parsedTerms[0][0]);
+                    num2 = eval_stack.GetConstant(retrieved_const2);
+                }
+               
 
                 object[] parsed_expression = { num1, oper, num2 };
+                eval_stack.lastq = parsed_expression;
                 return parsed_expression;
 
             }

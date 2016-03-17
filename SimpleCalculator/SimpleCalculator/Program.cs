@@ -17,31 +17,37 @@ namespace SimpleCalculator
             Expression user_expression = new Expression();
             Evaluate math_ops = new Evaluate();
             EvalStack eval_stack = new EvalStack();
-
-            while (true)
+            bool loop_runner = true;
+            while (loop_runner)
             {
                 Console.Write(user_term.PromptInitialUserInput());
                 string user_input = Console.ReadLine();
-                object[] parsed_expression = user_expression.ExtractTerms(user_input);
-                if (parsed_expression.Length < 2)
-                {
-                    char constant_key = (char)parsed_expression[0];
 
-                    // Why am I getting zero here?
-                    Console.WriteLine(constant_key);
-                    //int constant_val = eval_stack.GetConstant(constant_key);
-                   // Console.WriteLine(user_term.DisplayExpressionResult(constant_val));
-                }
-                else if (parsed_expression[0] is char && parsed_expression.Length > 1)
+                if (user_input == "lastq")
                 {
-                    eval_stack.SetConstant(parsed_expression);
+                    Console.WriteLine(user_term.ReturnLastExpression(eval_stack));
+                }
+                else if (user_input == "last")
+                {
+                    Console.WriteLine(user_term.DisplayExpressionResult(eval_stack.last));    
+                }
+                else if (user_input == "exit" || user_input == "quit")
+                {
+                    Environment.Exit(0);
+                }
+                else if (user_input.Contains('='))
+                {
+                    object[] parsed_expression = user_expression.Parse(user_input, eval_stack);
                     user_term.counter++;
                 }
                 else
                 {
+                    object[] parsed_expression = user_expression.Parse(user_input, eval_stack);
                     double expression_output = math_ops.EvaluateExpression(parsed_expression, eval_stack);
+                    user_term.counter++;
                     Console.WriteLine(user_term.DisplayExpressionResult(expression_output));
                 }
+                
             } 
 
         }
